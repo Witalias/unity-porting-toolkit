@@ -1,0 +1,13 @@
+{
+  "name": "com.portingtechnologies.upt.eos",
+  "displayName": "Unity Porting Toolkit - EOS",
+  "version": "1.0.0",
+  "description": "EOS module",
+  "unity": "6000.2",
+  "author": "Porting Technologies",
+  "category": "Tools",
+  "dependencies": {
+    "com.portingtechnologies.upt.core": "1.0.0",
+    "com.playeveryware.eos": "5.1.3"
+  }
+}

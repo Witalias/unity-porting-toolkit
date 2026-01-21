@@ -5,5 +5,8 @@
   "description": "Core framework for porting",
   "unity": "6000.2",
   "author": "Porting Technologies",
-  "category": "Tools"
+  "category": "Tools",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.2"
+  }
 }
