@@ -7,7 +7,7 @@
   "author": "Porting Technologies",
   "category": "Tools",
   "dependencies": {
-    "com.portingtechnologies.upt.core": "https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.core#1.0.0",
-    "com.playeveryware.eos": "https://github.com/EOS-Contrib/eos_plugin_for_unity_upm#5.1.3"
+    "com.portingtechnologies.upt.core": "https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.core",
+    "com.playeveryware.eos": "https://github.com/EOS-Contrib/eos_plugin_for_unity_upm"
   }
 }
