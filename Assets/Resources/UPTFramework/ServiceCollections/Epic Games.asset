@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f35b76c89a49b479181a449c0da3ab, type: 3}
+  m_Name: Epic Games
+  m_EditorClassIdentifier: PortingTechnologies.UPT.Core::UPT.Core.PlatformServiceCollection
+  Name: Epic Games
+  IsActive: 0
+  m_serviceConfigs:
+  - ServiceType: IAchievementService
+    PreferredPlatform: Epic Online Services
+  - ServiceType: ILeaderboardService
+    PreferredPlatform: Epic Online Services
+  - ServiceType: ILobbyService
+    PreferredPlatform: Epic Online Services

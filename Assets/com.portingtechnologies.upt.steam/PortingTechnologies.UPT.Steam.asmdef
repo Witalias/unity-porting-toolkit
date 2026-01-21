@@ -1,0 +1,31 @@
+{
+    "name": "PortingTechnologies.UPT.Steam",
+    "rootNamespace": "UPT.Steam",
+    "references": [
+        "GUID:a37a9a1b8ffc5bc408d5ade4441085c5",
+        "GUID:68bd7fdb68ef2684e982e8a9825b18a5",
+        "GUID:be1f6e9efffcfce41aeb5c2f4c27cf75"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "LinuxStandalone64",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "STEAMWORKS_NET"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.rlabrecque.steamworks.net",
+            "expression": "2025.162.1",
+            "define": "STEAMWORKS_AVAILABLE"
+        }
+    ],
+    "noEngineReferences": false
+}

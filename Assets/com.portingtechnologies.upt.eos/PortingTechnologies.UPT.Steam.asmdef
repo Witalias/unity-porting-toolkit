@@ -1,0 +1,27 @@
+{
+    "name": "PortingTechnologies.UPT.EOS",
+    "rootNamespace": "UPT.EOS",
+    "references": [
+        "GUID:a37a9a1b8ffc5bc408d5ade4441085c5"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "LinuxStandalone64",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.playeveryware.eos",
+            "expression": "5.1.0",
+            "define": "EOS_AVAILABLE"
+        }
+    ],
+    "noEngineReferences": false
+}
