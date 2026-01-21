@@ -3,7 +3,7 @@
   "displayName": "Unity Porting Toolkit - Core",
   "version": "1.0.0",
   "description": "Core framework for porting",
-  "unity": "6000.2.8f1",
+  "unity": "6000.2",
   "author": "Porting Technologies",
   "category": "Tools"
 }
