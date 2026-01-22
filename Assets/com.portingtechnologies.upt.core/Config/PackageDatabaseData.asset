@@ -15,7 +15,7 @@ MonoBehaviour:
   m_packages:
   - Name: com.portingtechnologies.upt.steam
     DisplayName: Steam
-    Url: 
+    Url: https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.steam
     Version: 1.0.0
   - Name: com.rlabrecque.steamworks.net
     DisplayName: Steamworks.NET
@@ -23,7 +23,7 @@ MonoBehaviour:
     Version: 1.0.0
   - Name: com.portingtechnologies.upt.eos
     DisplayName: Epic Onine Services
-    Url: 
+    Url: https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.eos
     Version: 1.0.0
   - Name: com.playeveryware.eos
     DisplayName: EOS Plugin for Unity
