@@ -33,7 +33,7 @@ namespace UPT.Core
         {
 #if UNITY_EDITOR
             var fullPath = Path.Combine(GetResourceFrameworkRoot(), filePath);
-            CreateDirectoriesForPath(filePath);
+            CreateDirectoriesForPath(fullPath);
 
             AssetDatabase.CreateAsset(asset, fullPath);
             AssetDatabase.SaveAssets();

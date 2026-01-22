@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PortingTechnologies.UPT.Core::UPT.Core.PackageDatabaseData
   m_packages:
   - Name: com.portingtechnologies.upt.steam
-    DisplayName: UPT Steam Module
+    DisplayName: Steam
     Url: 
     Version: 1.0.0
   - Name: com.rlabrecque.steamworks.net
@@ -22,10 +22,18 @@ MonoBehaviour:
     Url: https://github.com/rlabrecque/Steamworks.NET.git
     Version: 1.0.0
   - Name: com.portingtechnologies.upt.eos
-    DisplayName: UPT Epic Onine Services Module
+    DisplayName: Epic Onine Services
     Url: 
     Version: 1.0.0
   - Name: com.playeveryware.eos
     DisplayName: EOS Plugin for Unity
     Url: https://github.com/EOS-Contrib/eos_plugin_for_unity_upm.git
+    Version: 1.0.0
+  - Name: com.portingtechnologies.upt.googleplay
+    DisplayName: Google Play
+    Url: 
+    Version: 1.0.0
+  - Name: com.google.play.games
+    DisplayName: Google Play Plugin for Unity
+    Url: https://github.com/playgameservices/play-games-plugin-for-unity.git?path=/Assets/Public/GooglePlayGames/com.google.play.games
     Version: 1.0.0

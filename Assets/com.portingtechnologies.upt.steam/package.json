@@ -7,7 +7,6 @@
   "author": "Porting Technologies",
   "category": "Tools",
   "dependencies": {
-    "com.portingtechnologies.upt.core": "https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.core",
-    "com.rlabrecque.steamworks.net": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net"
+    "com.portingtechnologies.upt.core": "https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.core"
   }
 }
