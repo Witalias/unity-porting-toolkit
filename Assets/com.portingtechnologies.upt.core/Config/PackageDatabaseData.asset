@@ -19,7 +19,7 @@ MonoBehaviour:
     Version: 1.0.0
   - Name: com.rlabrecque.steamworks.net
     DisplayName: Steamworks.NET
-    Url: https://github.com/rlabrecque/Steamworks.NET.git
+    Url: https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net
     Version: 1.0.0
   - Name: com.portingtechnologies.upt.eos
     DisplayName: Epic Onine Services
