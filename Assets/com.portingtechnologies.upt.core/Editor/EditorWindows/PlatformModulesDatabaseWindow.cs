@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.PackageManager;
@@ -17,7 +15,7 @@ namespace UPT.Editor
         private Vector2 m_scrollPosition;
         private IReadOnlyList<PackageData> m_packageDatabase;
 
-        private readonly List<string> installationQueue = new();
+        private readonly List<PackageData> installationQueue = new();
         private AddRequest addRequest;
         private string currentPackageName;
         private bool isInstalling;
@@ -166,7 +164,6 @@ namespace UPT.Editor
             EditorGUILayout.LabelField(package.DisplayName, EditorStyles.boldLabel);
             EditorGUILayout.LabelField(package.Name, m_grayStyle);
             DrawPackageStatus(package);
-            EditorGUILayout.LabelField(package.Url);
 
             EditorGUILayout.EndVertical();
         }
@@ -217,20 +214,18 @@ namespace UPT.Editor
 
             if (package1.Status is PackageStatus.Installed && package2.Status is PackageStatus.Installed)
             {
-                EditorGUILayout.LabelField("Already installed");
+                EditorGUILayout.LabelField("Installed");
             }
-            else if (isThisPairInstalling)
+            else if (package1.Status is PackageStatus.Installing || package2.Status is PackageStatus.Installing)
             {
                 EditorGUILayout.LabelField("Installing...");
-                Rect rect = EditorGUILayout.GetControlRect();
-                EditorGUI.ProgressBar(rect, 0.5f, "Installing");
+                GUILayoutRunningBar.Draw();
             }
             else
             {
-                GUI.enabled = !isInstalling;
                 if (GUILayout.Button("Install", GUILayout.Height(20)))
                     InstallPackagePair(firstIndex);
-                GUI.enabled = true;
+                    
             }
 
             EditorGUILayout.EndVertical();
@@ -245,13 +240,13 @@ namespace UPT.Editor
 
             if (m_packageDatabase[firstIndex].Status is PackageStatus.NotInstalled)
             {
-                installationQueue.Add(m_packageDatabase[firstIndex].Url);
+                installationQueue.Add(m_packageDatabase[firstIndex]);
                 m_packageDatabase[firstIndex].Status = PackageStatus.Installing;
             }
 
             if (m_packageDatabase[firstIndex + 1].Status is PackageStatus.NotInstalled)
             {
-                installationQueue.Add(m_packageDatabase[firstIndex + 1].Url);
+                installationQueue.Add(m_packageDatabase[firstIndex + 1]);
                 m_packageDatabase[firstIndex + 1].Status = PackageStatus.Installing;
             }
 
@@ -262,9 +257,14 @@ namespace UPT.Editor
         {
             if (installationQueue.Count > 0 && !isInstalling)
             {
-                var url = installationQueue[0];
+                var url = installationQueue[0].Url;
+                if (string.IsNullOrEmpty(url))
+                {
+                    UptLogger.Error($"Package {installationQueue[0].Name}: Url is null");
+                    return;
+                }    
 
-                currentPackageName = GetPackageNameFromUrl(url);
+                currentPackageName = installationQueue[0].Name;
 
                 UptLogger.Info($"Starting installation: {currentPackageName}");
 
@@ -273,16 +273,6 @@ namespace UPT.Editor
 
                 Repaint();
             }
-        }
-
-        private string GetPackageNameFromUrl(string url)
-        {
-            foreach (var package in m_packageDatabase)
-            {
-                if (package.Url == url)
-                    return package.Name;
-            }
-            return "Unknown Package";
         }
 
         private void OnEditorUpdate()
