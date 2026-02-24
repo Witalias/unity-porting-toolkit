@@ -3,8 +3,7 @@
     "rootNamespace": "UPT.Steam",
     "references": [
         "GUID:a37a9a1b8ffc5bc408d5ade4441085c5",
-        "GUID:68bd7fdb68ef2684e982e8a9825b18a5",
-        "GUID:be1f6e9efffcfce41aeb5c2f4c27cf75"
+        "GUID:68bd7fdb68ef2684e982e8a9825b18a5"
     ],
     "includePlatforms": [
         "Editor",
@@ -18,7 +17,7 @@
     "precompiledReferences": [],
     "autoReferenced": false,
     "defineConstraints": [
-        "STEAMWORKS_NET"
+        "!DISABLESTEAMWORKS"
     ],
     "versionDefines": [
         {

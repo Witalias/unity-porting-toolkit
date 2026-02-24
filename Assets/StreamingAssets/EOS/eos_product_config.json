@@ -1,12 +1,38 @@
 {
-  "ProductName": null,
-  "ProductId": "00000000000000000000000000000000",
-  "ProductVersion": null,
+  "ProductName": "BlazeRush",
+  "ProductId": "6ffc3002800a4dfa8e13ce7c997d9caf",
+  "ProductVersion": "1.0",
   "imported": true,
-  "Clients": [],
+  "Clients": [
+    {
+      "Value": {
+        "ClientId": "xyza7891FG5Frsz7E24VwwAHfIjfx12G",
+        "ClientSecret": "KOSXjhaXU0MY2duQ7bJdXD8gx3lHMe6iTSPQvIW5Cv4",
+        "EncryptionKey": "0A7850EDA56C2E2E29145C52B87B03B4294ABFA2D3A976B4117FB1B709030D30"
+      },
+      "Name": "Client"
+    }
+  ],
   "Environments": {
-    "Deployments": [],
-    "Sandboxes": []
+    "Deployments": [
+      {
+        "Value": {
+          "SandboxId": {
+            "Value": "p-bm6gjn5sguqknjyqh39ak2yxdgz239"
+          },
+          "DeploymentId": "9d34067e2dc14eb48da0955e33610d0c"
+        },
+        "Name": "Deployment"
+      }
+    ],
+    "Sandboxes": [
+      {
+        "Value": {
+          "Value": "p-bm6gjn5sguqknjyqh39ak2yxdgz239"
+        },
+        "Name": "Sandbox"
+      }
+    ]
   },
   "schemaVersion": "1.0"
 }

@@ -2,7 +2,8 @@
     "name": "PortingTechnologies.UPT.EOS",
     "rootNamespace": "UPT.EOS",
     "references": [
-        "GUID:a37a9a1b8ffc5bc408d5ade4441085c5"
+        "GUID:a37a9a1b8ffc5bc408d5ade4441085c5",
+        "GUID:2ced8f3cc58f63843bc26c7591a35628"
     ],
     "includePlatforms": [
         "Editor",
@@ -15,7 +16,9 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": false,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "!EOS_DISABLE"
+    ],
     "versionDefines": [
         {
             "name": "com.playeveryware.eos",
