@@ -11,79 +11,72 @@ namespace UPT.Editor
     public class PlatformModulesDatabaseWindow : EditorWindow
     {
         private const float CELL_WIDTH = 250.0f;
+        private const float CELL_GAP = 5.0f;
+        private const float INSTALL_BUTTON_WIDTH = 100.0f;
 
         private Vector2 m_scrollPosition;
-        private IReadOnlyList<PackageData> m_packageDatabase;
+        private GUILoading m_loadingIndicator;
 
-        private readonly List<PackageData> installationQueue = new();
-        private AddRequest addRequest;
-        private string currentPackageName;
-        private bool isInstalling;
+        private IReadOnlyList<PackagePair> m_packageDatabase;
+        private readonly List<PackageData> m_installationQueue = new();
+        private string m_currentPackageName;
 
-        private ListRequest listRequest;
-        private bool isGettingPackageList;
+        private bool m_isInstalling;
+        private bool m_isGettingPackageList;
 
-        private GUIStyle m_titleStyle;
-        private GUIStyle m_grayStyle;
-        private GUIStyle m_greenStyle;
-        private GUIStyle m_redStyle;
+        private AddRequest m_addRequest;
+        private ListRequest m_listRequest;
 
-        [MenuItem("Tools/Porting Toolkit/Modules Database")]
+        [MenuItem("Tools/Porting Toolkit/Modules Database", priority = 1)]
         public static void ShowWindow()
         {
-            GetWindow<PlatformModulesDatabaseWindow>("Modules Database");
+            var window = GetWindow<PlatformModulesDatabaseWindow>("Modules Database");
+            window.minSize = new Vector2(650, 100);
+            window.Show();
         }
 
         private void OnEnable()
         {
-            InitializeStyles();
+            m_loadingIndicator = new();
+
             LoadPackageData();
             EditorApplication.update += OnEditorUpdate;
 
             if (m_packageDatabase == null)
                 return;
 
-            foreach (var package in m_packageDatabase)
-                package.Status = PackageStatus.NotInstalled;
+            foreach (var packagePair in m_packageDatabase)
+            {
+                if (string.IsNullOrEmpty(packagePair.ModulePackage.Name))
+                    packagePair.ModulePackage.Status = PackageStatus.Installed;
+
+                if (string.IsNullOrEmpty(packagePair.ExternalPackage.Name))
+                    packagePair.ExternalPackage.Status = PackageStatus.Installed;
+            }    
 
             RefreshPackageStatus();
         }
 
         private void OnDisable()
         {
+            m_loadingIndicator = null;
             EditorApplication.update -= OnEditorUpdate;
         }
 
         private void OnGUI()
         {
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.BeginVertical();
 
-            m_scrollPosition = EditorGUILayout.BeginScrollView(m_scrollPosition);
-
-            DrawPackageTable();
             DrawStatusBar();
+            DrawPackageTable();
 
-            EditorGUILayout.EndScrollView();
-
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            EditorGUILayout.EndVertical();
+            GUILayout.FlexibleSpace();
+            GUILayout.Space(GUIConstants.Gaps.Padding);
             EditorGUILayout.EndHorizontal();
-        }
-
-        private void InitializeStyles()
-        {
-            m_titleStyle = new();
-            m_titleStyle.fontSize = 16;
-            m_titleStyle.fontStyle = FontStyle.Bold;
-
-            m_grayStyle = new(EditorStyles.label);
-            m_grayStyle.normal.textColor = Color.gray;
-
-            m_greenStyle = new(EditorStyles.label);
-            m_greenStyle.normal.textColor = Color.darkGreen;
-
-            m_redStyle = new(EditorStyles.label);
-            m_redStyle.normal.textColor = Color.darkRed;
         }
 
         private void LoadPackageData()
@@ -103,21 +96,21 @@ namespace UPT.Editor
 
         private void DrawStatusBar()
         {
-            EditorGUILayout.Space(20);
+            EditorGUILayout.Space(GUIConstants.Gaps.SectionGap);
             EditorGUILayout.BeginHorizontal(EditorStyles.helpBox);
 
-            if (isInstalling)
+            if (m_isInstalling)
             {
                 EditorGUILayout.LabelField("Status: Installing packages...");
             }
-            else if (installationQueue.Count == 0)
+            else if (m_installationQueue.Count == 0)
             {
                 EditorGUILayout.LabelField("Status: Ready");
             }
 
-            if (installationQueue.Count > 0)
+            if (m_installationQueue.Count > 0)
             {
-                EditorGUILayout.LabelField($"Queue: {installationQueue.Count} remaining");
+                EditorGUILayout.LabelField($"Queue: {m_installationQueue.Count} remaining");
             }
 
             EditorGUILayout.EndHorizontal();
@@ -125,44 +118,61 @@ namespace UPT.Editor
 
         private void DrawPackageTable()
         {
+            GUILayout.Space(GUIConstants.Gaps.SectionGap);
+
             // Table headers
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
             GUILayout.Label("UPT Module", EditorStyles.boldLabel, GUILayout.Width(CELL_WIDTH));
             GUILayout.Label("External Package", EditorStyles.boldLabel, GUILayout.Width(CELL_WIDTH));
-            GUILayout.Label("", EditorStyles.boldLabel, GUILayout.Width(100.0f));
+            GUILayout.Label("", EditorStyles.boldLabel, GUILayout.Width(INSTALL_BUTTON_WIDTH));
             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.Space(5);
+            EditorGUILayout.Space(CELL_GAP);
 
-            for (int i = 0; i < m_packageDatabase.Count; i += 2)
+            if (m_isGettingPackageList)
             {
                 EditorGUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                m_loadingIndicator?.Draw();
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.EndHorizontal();
+                return;
+            }
 
-                DrawPackageColumn(i);
+            m_scrollPosition = EditorGUILayout.BeginScrollView(m_scrollPosition);
 
-                if (i + 1 < m_packageDatabase.Count)
-                    DrawPackageColumn(i + 1);
-                else
-                    GUILayout.Label("", GUILayout.Width(CELL_WIDTH));
+            foreach (var packagePair in m_packageDatabase)
+            {
+                if (string.IsNullOrEmpty(packagePair.ModulePackage.Name) && string.IsNullOrEmpty(packagePair.ExternalPackage.Name))
+                    continue;
 
-                DrawInstallButtonPair(i);
+                EditorGUILayout.BeginHorizontal();
+
+                DrawPackageCell(packagePair.ModulePackage);
+                DrawPackageCell(packagePair.ExternalPackage);
+                DrawInstallButtonPair(packagePair);
 
                 EditorGUILayout.EndHorizontal();
-                EditorGUILayout.Space(5);
+                EditorGUILayout.Space(CELL_GAP);
             }
+
+            EditorGUILayout.EndScrollView();
         }
 
-        private void DrawPackageColumn(int index)
+        private void DrawPackageCell(PackageData package)
         {
-            if (index >= m_packageDatabase.Count)
+            if (package == null || string.IsNullOrEmpty(package.Name))
+            {
+                GUILayout.Label("", GUILayout.Width(CELL_WIDTH));
                 return;
-
-            var package = m_packageDatabase[index];
+            }
 
             EditorGUILayout.BeginVertical(GUILayout.Width(CELL_WIDTH));
 
             EditorGUILayout.LabelField(package.DisplayName, EditorStyles.boldLabel);
-            EditorGUILayout.LabelField(package.Name, m_grayStyle);
+            EditorGUILayout.LabelField(package.Name, GUIConstants.Styles.GrayLabel);
+            if (!string.IsNullOrEmpty(package.Version))
+                EditorGUILayout.LabelField($"Version: {package.Version}", GUIConstants.Styles.GrayLabel);
             DrawPackageStatus(package);
 
             EditorGUILayout.EndVertical();
@@ -177,77 +187,67 @@ namespace UPT.Editor
             {
                 case PackageStatus.NotInstalled:
                     statusText = "Not Installed";
-                    style = m_grayStyle;
+                    style = GUIConstants.Styles.GrayLabel;
                     break;
                 case PackageStatus.Installing:
                     statusText = "Installing...";
                     break;
                 case PackageStatus.Installed:
                     statusText = "Installed";
-                    style = m_greenStyle;
+                    style = GUIConstants.Styles.GreenLabel;
                     break;
                 case PackageStatus.Failed:
                     statusText = $"Failed: {package.StatusMessage}";
-                    style = m_redStyle;
+                    style = GUIConstants.Styles.RedLabel;
                     break;
             }
 
             EditorGUILayout.LabelField(statusText, style);
         }
 
-        private void DrawInstallButtonPair(int firstIndex)
+        private void DrawInstallButtonPair(PackagePair packagePair)
         {
-            if (firstIndex + 1 >= m_packageDatabase.Count)
+            if (packagePair == null)
                 return;
 
-            EditorGUILayout.BeginVertical(GUILayout.Width(100.0f));
+            EditorGUILayout.BeginVertical(GUILayout.Width(INSTALL_BUTTON_WIDTH));
 
-            var package1 = m_packageDatabase[firstIndex];
-            var package2 = m_packageDatabase[firstIndex + 1];
-
-            var isThisPairInstalling = false;
-            if (isInstalling && currentPackageName != null)
-            {
-                isThisPairInstalling =  currentPackageName == package1.Name ||
-                                        currentPackageName == package2.Name;
-            }
-
-            if (package1.Status is PackageStatus.Installed && package2.Status is PackageStatus.Installed)
+            if (packagePair.ModulePackage.Status is PackageStatus.Installed && packagePair.ExternalPackage.Status is PackageStatus.Installed)
             {
                 EditorGUILayout.LabelField("Installed");
             }
-            else if (package1.Status is PackageStatus.Installing || package2.Status is PackageStatus.Installing)
+            else if (packagePair.ModulePackage.Status is PackageStatus.Installing || packagePair.ModulePackage.Status is PackageStatus.Installing)
             {
                 EditorGUILayout.LabelField("Installing...");
-                GUILayoutRunningBar.Draw();
+                m_loadingIndicator?.Draw();
             }
             else
             {
                 if (GUILayout.Button("Install", GUILayout.Height(20)))
-                    InstallPackagePair(firstIndex);
+                    InstallPackagePair(packagePair);
                     
             }
 
             EditorGUILayout.EndVertical();
         }
 
-        private void InstallPackagePair(int firstIndex)
+        private void InstallPackagePair(PackagePair packagePair)
         {
-            if (firstIndex + 1 >= m_packageDatabase.Count)
+            if (packagePair == null)
                 return;
 
-            installationQueue.Clear();
+            m_installationQueue.Clear();
 
-            if (m_packageDatabase[firstIndex].Status is PackageStatus.NotInstalled)
+            if (packagePair.ModulePackage.Status is PackageStatus.NotInstalled && !string.IsNullOrEmpty(packagePair.ModulePackage.Url))
             {
-                installationQueue.Add(m_packageDatabase[firstIndex]);
-                m_packageDatabase[firstIndex].Status = PackageStatus.Installing;
+                m_installationQueue.Add(packagePair.ModulePackage);
+                packagePair.ModulePackage.Status = PackageStatus.Installing;
             }
 
-            if (m_packageDatabase[firstIndex + 1].Status is PackageStatus.NotInstalled)
+            if (packagePair.ExternalPackage.Status is PackageStatus.NotInstalled && !string.IsNullOrEmpty(packagePair.ExternalPackage.Url))
             {
-                installationQueue.Add(m_packageDatabase[firstIndex + 1]);
-                m_packageDatabase[firstIndex + 1].Status = PackageStatus.Installing;
+                m_installationQueue.Add(packagePair.ExternalPackage);
+                packagePair.ExternalPackage.Status = PackageStatus.Installing;
             }
 
             StartInstallation();
@@ -255,21 +255,21 @@ namespace UPT.Editor
 
         private void StartInstallation()
         {
-            if (installationQueue.Count > 0 && !isInstalling)
+            if (m_installationQueue.Count > 0 && !m_isInstalling)
             {
-                var url = installationQueue[0].Url;
+                var url = m_installationQueue[0].Url;
                 if (string.IsNullOrEmpty(url))
                 {
-                    UptLogger.Error($"Package {installationQueue[0].Name}: Url is null");
+                    UptLogger.Error($"Package {m_installationQueue[0].Name}: Url is null");
                     return;
                 }    
 
-                currentPackageName = installationQueue[0].Name;
+                m_currentPackageName = m_installationQueue[0].Name;
 
-                UptLogger.Info($"Starting installation: {currentPackageName}");
+                UptLogger.Info($"Starting installation: {m_currentPackageName}");
 
-                addRequest = Client.Add(url);
-                isInstalling = true;
+                m_addRequest = Client.Add(url);
+                m_isInstalling = true;
 
                 Repaint();
             }
@@ -277,20 +277,22 @@ namespace UPT.Editor
 
         private void OnEditorUpdate()
         {
-            if (isInstalling && addRequest != null && addRequest.IsCompleted)
+            if (m_isInstalling && m_addRequest != null && m_addRequest.IsCompleted)
                 HandleInstallationResult();
 
-            if (isGettingPackageList && listRequest != null && listRequest.IsCompleted)
+            if (m_isGettingPackageList && m_listRequest != null && m_listRequest.IsCompleted)
                 HandlePackageListResult();
         }
 
         private void HandleInstallationResult()
         {
-            PackageData package = m_packageDatabase.FirstOrDefault(p => p.Name == currentPackageName);
+            var package = m_packageDatabase
+                .SelectMany(packagePair => new PackageData[] { packagePair.ModulePackage, packagePair.ExternalPackage })
+                .FirstOrDefault(p => p.Name == m_currentPackageName);
 
-            if (addRequest.Status == StatusCode.Success)
+            if (m_addRequest.Status == StatusCode.Success)
             {
-                UptLogger.Info($"Successfully installed: {currentPackageName}");
+                UptLogger.Info($"Successfully installed: {m_currentPackageName}");
 
                 if (package != null)
                 {
@@ -298,34 +300,34 @@ namespace UPT.Editor
                     package.StatusMessage = "Success";
                 }
 
-                ShowNotification(new GUIContent($"{currentPackageName} installed successfully!"), 2);
+                ShowNotification(new GUIContent($"{m_currentPackageName} installed successfully!"), 2);
             }
             else
             {
-                UptLogger.Error($"Failed to install {currentPackageName}: {addRequest.Error.message}");
+                UptLogger.Error($"Failed to install {m_currentPackageName}: {m_addRequest.Error.message}");
 
                 if (package != null)
                 {
                     package.Status = PackageStatus.Failed;
-                    package.StatusMessage = addRequest.Error.message;
+                    package.StatusMessage = m_addRequest.Error.message;
                 }
 
-                ShowNotification(new GUIContent($"Failed to install {currentPackageName}"), 2);
+                ShowNotification(new GUIContent($"Failed to install {m_currentPackageName}"), 2);
             }
 
-            if (installationQueue.Count > 0)
-                installationQueue.RemoveAt(0);
+            if (m_installationQueue.Count > 0)
+                m_installationQueue.RemoveAt(0);
 
-            addRequest = null;
-            currentPackageName = null;
+            m_addRequest = null;
+            m_currentPackageName = null;
 
-            if (installationQueue.Count > 0)
+            if (m_installationQueue.Count > 0)
             {
                 StartInstallation();
             }
             else
             {
-                isInstalling = false;
+                m_isInstalling = false;
                 RefreshPackageStatus();
             }
 
@@ -334,25 +336,33 @@ namespace UPT.Editor
 
         private void HandlePackageListResult()
         {
-            if (listRequest.Status == StatusCode.Success)
+            if (m_listRequest.Status == StatusCode.Success)
             {
-                foreach (var installedPackage in listRequest.Result)
+                foreach (var installedPackage in m_listRequest.Result)
                 {
-                    var package = m_packageDatabase.FirstOrDefault(p => p.Name == installedPackage.name);
+                    var package = m_packageDatabase
+                        .SelectMany(packagePair => new PackageData[] { packagePair.ModulePackage, packagePair.ExternalPackage })
+                        .FirstOrDefault(p => p.Name == installedPackage.name);
+
                     if (package != null)
+                    {
                         package.Status = PackageStatus.Installed;
+                        package.Version = installedPackage.version;
+                    }
                 }
             }
             else
             {
                 UptLogger.Error($"Failed to get package list");
             }
+
+            m_isGettingPackageList = false;
         }
 
         private void RefreshPackageStatus()
         {
-            listRequest = Client.List();
-            isGettingPackageList = true;
+            m_listRequest = Client.List();
+            m_isGettingPackageList = true;
         }
     }
 }

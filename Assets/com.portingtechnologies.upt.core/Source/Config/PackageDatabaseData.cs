@@ -4,12 +4,11 @@ using UnityEngine;
 
 namespace UPT.Core
 {
-    [CreateAssetMenu(fileName = "PackageDatabaseData", menuName = "Scriptable Objects/PackageDatabaseData")]
     public class PackageDatabaseData : ScriptableObject
     {
-        [SerializeField] private List<PackageData> m_packages;
+        [SerializeField] private List<PackagePair> m_packages;
 
-        public IReadOnlyList<PackageData> Packages => m_packages;
+        public IReadOnlyList<PackagePair> Packages => m_packages;
     }
 
     [Serializable]
@@ -18,10 +17,17 @@ namespace UPT.Core
         public string Name;
         public string DisplayName;
         public string Url;
-        public string Version = "main";
 
+        [NonSerialized] public string Version;
         [NonSerialized] public PackageStatus Status;
         [NonSerialized] public string StatusMessage;
+    }
+
+    [Serializable]
+    public class PackagePair
+    {
+        public PackageData ModulePackage;
+        public PackageData ExternalPackage;
     }
 
     public enum PackageStatus

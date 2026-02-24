@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: PackageDatabaseData
   m_EditorClassIdentifier: PortingTechnologies.UPT.Core::UPT.Core.PackageDatabaseData
   m_packages:
-  - Name: com.portingtechnologies.upt.steam
-    DisplayName: Steam
-    Url: https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.steam
-    Version: 1.0.0
-  - Name: com.rlabrecque.steamworks.net
-    DisplayName: Steamworks.NET
-    Url: https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net
-    Version: 1.0.0
-  - Name: com.portingtechnologies.upt.eos
-    DisplayName: Epic Onine Services
-    Url: https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.eos
-    Version: 1.0.0
-  - Name: com.playeveryware.eos
-    DisplayName: EOS Plugin for Unity
-    Url: https://github.com/EOS-Contrib/eos_plugin_for_unity_upm.git
-    Version: 1.0.0
-  - Name: com.portingtechnologies.upt.googleplay
-    DisplayName: Google Play
-    Url: 
-    Version: 1.0.0
-  - Name: com.google.play.games
-    DisplayName: Google Play Plugin for Unity
-    Url: https://github.com/playgameservices/play-games-plugin-for-unity.git?path=/Assets/Public/GooglePlayGames/com.google.play.games
-    Version: 1.0.0
+  - ModulePackage:
+      Name: com.portingtechnologies.upt.steam
+      DisplayName: Steam
+      Url: https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.steam
+    ExternalPackage:
+      Name: com.rlabrecque.steamworks.net
+      DisplayName: Steamworks.NET
+      Url: https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net
+  - ModulePackage:
+      Name: com.portingtechnologies.upt.eos
+      DisplayName: Epic Onine Services
+      Url: https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.eos
+    ExternalPackage:
+      Name: com.playeveryware.eos
+      DisplayName: EOS Plugin for Unity
+      Url: https://github.com/EOS-Contrib/eos_plugin_for_unity_upm.git
+  - ModulePackage:
+      Name: com.portingtechnologies.upt.googleplay
+      DisplayName: Google Play
+      Url: 
+    ExternalPackage:
+      Name: com.google.play.games
+      DisplayName: Google Play Plugin for Unity
+      Url: https://github.com/playgameservices/play-games-plugin-for-unity.git?path=/Assets/Public/GooglePlayGames/com.google.play.games

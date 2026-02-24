@@ -29,17 +29,6 @@ namespace UPT.Editor
         private string m_GUIFocusControl;
         private string m_collectionNameBuffer;
 
-        private GUIStyle m_titleStyle;
-
-        private Texture2D m_trashIcon;
-        private Texture2D m_refreshIcon;
-        private Texture2D m_plusIcon;
-        private Texture2D m_infoIcon;
-        private Texture2D m_saveIcon;
-        private Texture2D m_toolsIcon;
-        private Texture2D m_settingsIcon;
-        private Texture2D m_editIcon;
-
         [MenuItem("Tools/Porting Toolkit/Modules Manager", priority = 1)]
         public static void ShowWindow()
         {
@@ -48,8 +37,6 @@ namespace UPT.Editor
 
         void OnEnable()
         {
-            InitializeStyles();
-            InitializeIcons();
             RefreshAvailableModules();
             LoadCollections();
         }
@@ -62,7 +49,7 @@ namespace UPT.Editor
         void OnGUI()
         {
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
 
             m_scrollPosition = EditorGUILayout.BeginScrollView(m_scrollPosition);
 
@@ -74,32 +61,8 @@ namespace UPT.Editor
 
             EditorGUILayout.EndScrollView();
 
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
             EditorGUILayout.EndHorizontal();
-        }
-
-        private void InitializeStyles()
-        {
-            m_titleStyle = new();
-            m_titleStyle.fontSize = 16;
-            m_titleStyle.fontStyle = FontStyle.Bold;
-        }
-
-        private void InitializeIcons()
-        {
-            m_trashIcon = RetrieveIcon(Constants.Icons.Trash);
-            m_refreshIcon = RetrieveIcon(Constants.Icons.Refresh);
-            m_plusIcon = RetrieveIcon(Constants.Icons.Plus);
-            m_infoIcon = RetrieveIcon(Constants.Icons.Info);
-            m_saveIcon = RetrieveIcon(Constants.Icons.Save);
-            m_toolsIcon = RetrieveIcon(Constants.Icons.Tools);
-            m_settingsIcon = RetrieveIcon(Constants.Icons.Settings);
-            m_editIcon = RetrieveIcon(Constants.Icons.Edit);
-        }
-
-        private Texture2D RetrieveIcon(string name)
-        {
-            return (Texture2D)EditorGUIUtility.IconContent(name).image;
         }
 
         private void RefreshAvailableModules()
@@ -124,7 +87,7 @@ namespace UPT.Editor
 
         private void DrawHeader() 
         {
-            GUILayout.Space(Constants.EditorGaps.SectionGap);
+            GUILayout.Space(GUIConstants.Gaps.SectionGap);
 
             EditorGUILayout.BeginHorizontal();
 
@@ -146,7 +109,7 @@ namespace UPT.Editor
 
             if (m_updatePreprocessorDefinitions)
             {
-                GUILayout.Space(Constants.EditorGaps.Padding);
+                GUILayout.Space(GUIConstants.Gaps.Padding);
 
                 EditorGUILayout.HelpBox(
                     "The current configuration preset requires changing the Scripting Definition Symbols and reloading domain. " +
@@ -160,23 +123,23 @@ namespace UPT.Editor
                 }
             }
 
-            GUILayout.Space(Constants.EditorGaps.SectionGap);
+            GUILayout.Space(GUIConstants.Gaps.SectionGap);
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-            GUILayout.Space(Constants.EditorGaps.SectionGap);
+            GUILayout.Space(GUIConstants.Gaps.SectionGap);
         }
 
         private void DrawModulesSection()
         {
-            m_showModules = EditorGUILayout.BeginFoldoutHeaderGroup(m_showModules, new GUIContent("Platform Modules", m_toolsIcon));
+            m_showModules = EditorGUILayout.BeginFoldoutHeaderGroup(m_showModules, new GUIContent("Platform Modules", GUIConstants.GetIcon(GUIConstants.Icons.Tools)));
 
             if (m_showModules)
             {
-                EditorGUILayout.HelpBox(
-                    "Active modules are determined by service configuration. " +
-                    "A module is active if at least one service uses it as backend. " +
-                    "The system automatically detects the installed modules. " +
-                    "To find out how to install a particular module, refer to the documentation.",
-                    MessageType.Info);
+                //EditorGUILayout.HelpBox(
+                //    "Active modules are determined by service configuration. " +
+                //    "A module is active if at least one service uses it as backend. " +
+                //    "The system automatically detects the installed modules. " +
+                //    "To find out how to install a particular module, refer to the documentation.",
+                //    MessageType.Info);
 
                 EditorGUILayout.BeginVertical("Box");
 
@@ -190,12 +153,15 @@ namespace UPT.Editor
                     EditorGUILayout.LabelField("No platform modules found", EditorStyles.centeredGreyMiniLabel);
                 }
 
-                GUILayout.Space(Constants.EditorGaps.Padding);
+                GUILayout.Space(GUIConstants.Gaps.Padding);
                 EditorGUILayout.EndVertical();
+
+                if (GUILayout.Button("Open modules database"))
+                    PlatformModulesDatabaseWindow.ShowWindow();
             }
 
             EditorGUILayout.EndFoldoutHeaderGroup();
-            GUILayout.Space(Constants.EditorGaps.SectionGap);
+            GUILayout.Space(GUIConstants.Gaps.SectionGap);
         }
 
         private void DrawModuleItem(IPlatformModule module)
@@ -203,12 +169,10 @@ namespace UPT.Editor
             var isActive = IsModuleActive(module, m_currentServiceCollection);
             var servicesCount = module.ProvidedServiceTypes.Count;
 
-            //EditorGUILayout.BeginVertical("Box");
-
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
 
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
 
             //var statusIcon = isActive ? "✅" : "❌";
             GUILayout.Label($"{module.DisplayName}", EditorStyles.boldLabel, GUILayout.Width(200));
@@ -220,25 +184,23 @@ namespace UPT.Editor
             var statusText = isActive ? "✓ Using" : "✕ Not using";
             GUILayout.Label(statusText, GUILayout.Width(120));
 
-            if (GUILayout.Button(new GUIContent(m_infoIcon, "Info"), GUILayout.Width(30)))
+            if (GUILayout.Button(new GUIContent(GUIConstants.GetIcon(GUIConstants.Icons.Info), "Info"), GUILayout.Width(30)))
                 ShowModuleInfo(module);
 
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
             EditorGUILayout.EndHorizontal();
-
-            //EditorGUILayout.EndVertical();
         }
 
         private void DrawServicesSection()
         {
-            m_showServices = EditorGUILayout.BeginFoldoutHeaderGroup(m_showServices, new GUIContent("Services Configuration", m_settingsIcon));
+            m_showServices = EditorGUILayout.BeginFoldoutHeaderGroup(m_showServices, new GUIContent("Services Configuration", GUIConstants.GetIcon(GUIConstants.Icons.Settings)));
 
             if (m_showServices)
             {
-                EditorGUILayout.HelpBox(
-                    "Select the desired platform backend for each service. " +
-                    "If the backend is not selected, a backend stub will be used for the service, so you can safely use it in your code.",
-                    MessageType.Info);
+                //EditorGUILayout.HelpBox(
+                //    "Select the desired platform backend for each service. " +
+                //    "If the backend is not selected, a backend stub will be used for the service, so you can safely use it in your code.",
+                //    MessageType.Info);
 
                 EditorGUILayout.BeginVertical("Box");
 
@@ -253,12 +215,12 @@ namespace UPT.Editor
                         EditorStyles.centeredGreyMiniLabel);
                 }
 
-                GUILayout.Space(Constants.EditorGaps.Padding);
+                GUILayout.Space(GUIConstants.Gaps.Padding);
                 EditorGUILayout.EndVertical();
             }
 
             EditorGUILayout.EndFoldoutHeaderGroup();
-            GUILayout.Space(Constants.EditorGaps.SectionGap);
+            GUILayout.Space(GUIConstants.Gaps.SectionGap);
         }
 
         private void DrawServiceConfiguration(Type serviceType)
@@ -275,10 +237,10 @@ namespace UPT.Editor
                 .Select(module => module.DisplayName)
                 .ToList();
 
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
 
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
 
             GUILayout.Label(serviceName, EditorStyles.boldLabel, GUILayout.Width(150));
             GUILayout.FlexibleSpace();
@@ -316,7 +278,7 @@ namespace UPT.Editor
                 UpdatePreprocessorDefinitionsStatusForUI();
             }
 
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
             EditorGUILayout.EndHorizontal();
         }
 
@@ -325,14 +287,14 @@ namespace UPT.Editor
             //EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             //GUILayout.Space(SECTION_GAP);
 
-            m_showCollections = EditorGUILayout.BeginFoldoutHeaderGroup(m_showCollections, new GUIContent("Configuration Presets", m_saveIcon));
+            m_showCollections = EditorGUILayout.BeginFoldoutHeaderGroup(m_showCollections, new GUIContent("Configuration Presets", GUIConstants.GetIcon(GUIConstants.Icons.Save)));
 
             if (m_showCollections)
             {
-                EditorGUILayout.HelpBox(
-                    "You can switch between different configuration presets. " +
-                    "Please note that you create configuration presets separately for each build platform.",
-                    MessageType.Info);
+                //EditorGUILayout.HelpBox(
+                //    "You can switch between different configuration presets. " +
+                //    "Please note that you create configuration presets separately for each build platform.",
+                //    MessageType.Info);
 
                 EditorGUILayout.BeginVertical("Box");
 
@@ -350,15 +312,15 @@ namespace UPT.Editor
                     DrawCollectionItem(m_serviceCollections[i]);
                 }
 
-                GUILayout.Space(Constants.EditorGaps.Padding);
+                GUILayout.Space(GUIConstants.Gaps.Padding);
 
                 EditorGUILayout.BeginHorizontal();
-                GUILayout.Space(Constants.EditorGaps.Padding);
+                GUILayout.Space(GUIConstants.Gaps.Padding);
 
-                if (GUILayout.Button(new GUIContent(m_plusIcon, "Create new collection"), GUILayout.Width(Constants.EditorGaps.IconButtonWidth)))
+                if (GUILayout.Button(new GUIContent(GUIConstants.GetIcon(GUIConstants.Icons.Plus), "Create new collection"), GUILayout.Width(GUIConstants.Gaps.IconButtonWidth)))
                     CreateNewCollection();
 
-                if (GUILayout.Button(new GUIContent(m_refreshIcon, "Refresh collections"), GUILayout.Width(Constants.EditorGaps.IconButtonWidth)))
+                if (GUILayout.Button(new GUIContent(GUIConstants.GetIcon(GUIConstants.Icons.Refresh), "Refresh collections"), GUILayout.Width(GUIConstants.Gaps.IconButtonWidth)))
                 {
                     LoadCollections();
                     Repaint();
@@ -366,7 +328,7 @@ namespace UPT.Editor
 
                 EditorGUILayout.EndHorizontal();
 
-                GUILayout.Space(Constants.EditorGaps.Padding);
+                GUILayout.Space(GUIConstants.Gaps.Padding);
                 EditorGUILayout.EndVertical();
             }
             else
@@ -375,15 +337,15 @@ namespace UPT.Editor
             }
 
             EditorGUILayout.EndFoldoutHeaderGroup();
-            GUILayout.Space(Constants.EditorGaps.SectionGap);
+            GUILayout.Space(GUIConstants.Gaps.SectionGap);
         }
 
         private void DrawCollectionItem(PlatformServiceCollection collection)
         {
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
 
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
 
             var nameWidth = 200.0f;
 
@@ -434,26 +396,26 @@ namespace UPT.Editor
 
             var gap = 20.0f;
             GUILayout.Space(gap);
-            GUILayout.Label(new GUIContent(activeModulesCount.ToString(), m_toolsIcon, "Number of modules used"));
+            GUILayout.Label(new GUIContent(activeModulesCount.ToString(), GUIConstants.GetIcon(GUIConstants.Icons.Tools), "Number of modules used"));
             GUILayout.Space(gap);
-            GUILayout.Label(new GUIContent(activeServicesCount.ToString(), m_settingsIcon, "Number of services used"));
+            GUILayout.Label(new GUIContent(activeServicesCount.ToString(), GUIConstants.GetIcon(GUIConstants.Icons.Settings), "Number of services used"));
             GUILayout.Space(gap);
 
             if (collection == m_editingCollection)
             {
-                if (GUILayout.Button("✕", GUILayout.Width(Constants.EditorGaps.IconButtonWidth)))
+                if (GUILayout.Button("✕", GUILayout.Width(GUIConstants.Gaps.IconButtonWidth)))
                     m_editingCollection = null;
             }
             else
             {
-                if (GUILayout.Button(new GUIContent(m_editIcon, "Rename collection"), GUILayout.Width(Constants.EditorGaps.IconButtonWidth)))
+                if (GUILayout.Button(new GUIContent(GUIConstants.GetIcon(GUIConstants.Icons.Edit), "Rename collection"), GUILayout.Width(GUIConstants.Gaps.IconButtonWidth)))
                     SwitchEditModeCollection(collection);
             }
 
-            if (GUILayout.Button(new GUIContent(m_trashIcon, "Delete collection"), GUILayout.Width(Constants.EditorGaps.IconButtonWidth)))
+            if (GUILayout.Button(new GUIContent(GUIConstants.GetIcon(GUIConstants.Icons.Trash), "Delete collection"), GUILayout.Width(GUIConstants.Gaps.IconButtonWidth)))
                 DeleteCollection(collection);
 
-            GUILayout.Space(Constants.EditorGaps.Padding);
+            GUILayout.Space(GUIConstants.Gaps.Padding);
             EditorGUILayout.EndHorizontal();
 
             GUILayout.Space(5);
