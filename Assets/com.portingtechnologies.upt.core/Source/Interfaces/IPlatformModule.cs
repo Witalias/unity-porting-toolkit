@@ -10,6 +10,7 @@ namespace UPT.Core
         IReadOnlyCollection<Type> ProvidedServiceTypes { get; }
 
         bool Initialize();
+        void PostInitialize();
         void Shutdown();
         bool IsAvailable();
 

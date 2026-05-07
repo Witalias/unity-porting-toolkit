@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: Steam Crossplay
   m_EditorClassIdentifier: PortingTechnologies.UPT.Core::UPT.Core.PlatformServiceCollection
   Name: Steam Crossplay
-  IsActive: 1
+  IsActive: 0
   m_serviceConfigs:
   - ServiceType: IAchievementService
     PreferredPlatform: Steamworks
   - ServiceType: ILeaderboardService
-    PreferredPlatform: None
+    PreferredPlatform: Steamworks
   - ServiceType: ILobbyService
     PreferredPlatform: None
+  - ServiceType: IEOSAuthenticationService
+    PreferredPlatform: Epic Online Services
+  - ServiceType: IPlatformService
+    PreferredPlatform: Steamworks
+  - ServiceType: IRemoteStorageService
+    PreferredPlatform: Steamworks

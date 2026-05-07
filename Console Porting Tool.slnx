@@ -1,5 +1,0 @@
-﻿<Solution>
-  <Project Path="PortingTechnologies.UPT.Core.csproj" />
-  <Project Path="PortingTechnologies.UPT.Steam.csproj" />
-  <Project Path="PortingTechnologies.UPT.EOS.csproj" />
-</Solution>

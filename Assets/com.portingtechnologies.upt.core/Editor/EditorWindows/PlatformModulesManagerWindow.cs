@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEngine;
@@ -229,6 +230,10 @@ namespace UPT.Editor
             serviceConfig ??= m_currentServiceCollection.CreateConfig(serviceType);
 
             var serviceName = serviceConfig.ServiceType.ToString();
+            if (serviceName[0] == 'I')
+                serviceName = serviceName[1..]; // remove 'I' from interface name
+            serviceName = Regex.Replace(serviceName, @"(?<=[a-z])(?=[A-Z])", " "); // insert spaces before uppercase letter
+
             var currentModule = serviceConfig.PreferredPlatform;
             var hasBackend = !string.IsNullOrEmpty(currentModule) && currentModule != NONE_OPTION;
 
@@ -242,7 +247,7 @@ namespace UPT.Editor
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(GUIConstants.Gaps.Padding);
 
-            GUILayout.Label(serviceName, EditorStyles.boldLabel, GUILayout.Width(150));
+            GUILayout.Label(serviceName, EditorStyles.boldLabel, GUILayout.Width(200));
             GUILayout.FlexibleSpace();
 
             if (hasBackend)
@@ -267,7 +272,7 @@ namespace UPT.Editor
             var popupOptions = new List<string> { "None" };
             popupOptions.AddRange(availableModules);
 
-            var currentIndex = popupOptions.IndexOf(currentModule ?? NONE_OPTION);
+            var currentIndex = Mathf.Clamp(popupOptions.IndexOf(currentModule ?? NONE_OPTION), 0, popupOptions.Count);
             var newIndex = EditorGUILayout.Popup(currentIndex, popupOptions.ToArray(), GUILayout.Width(200));
 
             var newModule = popupOptions[newIndex];

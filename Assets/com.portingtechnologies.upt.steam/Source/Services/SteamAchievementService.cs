@@ -181,7 +181,7 @@ namespace UPT.Steam
             SteamUserStats.GetAchievementProgressLimits(achievementId, out _, out int maxProgress);
             var isHidden = hidden == "1";
 
-            callback?.Invoke(new UptAchievementGetInfoResult(ErrorCode.Success, null, achievementId, name, desc, null, isHidden, maxProgress));
+            callback?.Invoke(new UptAchievementGetInfoResult(ErrorCode.Success, null, achievementId, name, desc, isHidden, maxProgress));
         }
 
         public void GetAchievementIcon(string achievementId, AchievementGetIconCallback callback)

@@ -25,6 +25,8 @@ namespace UPT.Core
             return false;
         }
 
+        public virtual void PostInitialize() { }
+
         public virtual void Shutdown()
         {
             foreach (var serviceType in m_services.Keys)

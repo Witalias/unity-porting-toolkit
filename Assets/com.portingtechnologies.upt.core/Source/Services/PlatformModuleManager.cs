@@ -22,6 +22,12 @@ namespace UPT.Core
             LogLoadingSummary();
         }
 
+        public void PostInitialize()
+        {
+            foreach (var module in m_loadedModules)
+                module?.PostInitialize();
+        }
+
         public void UnloadAllModules()
         {
             foreach (var module in m_loadedModules)

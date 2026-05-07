@@ -1,0 +1,616 @@
+{
+  "m_assetDataDict": {
+    "Standalone": {
+      "Assets": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets"
+      },
+      "Assets\\Models": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Models"
+      },
+      "Assets\\Models\\textures": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Models/textures"
+      },
+      "Assets/Models/textures/ao_metallic_roughness.jpg": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Models/textures/ao_metallic_roughness.jpg"
+      },
+      "Assets/Models/textures/diffuse.jpg": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Models/textures/diffuse.jpg"
+      },
+      "Assets/Models/textures/normal.jpg": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Models/textures/normal.jpg"
+      },
+      "Assets\\TextMesh Pro": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/TextMesh Pro"
+      },
+      "Assets\\TextMesh Pro\\Sprites": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/TextMesh Pro/Sprites"
+      },
+      "Assets/TextMesh Pro/Sprites/EmojiOne.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/TextMesh Pro/Sprites/EmojiOne.png"
+      },
+      "Assets\\Textures": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures"
+      },
+      "Assets/Textures/exam 1.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 1.png"
+      },
+      "Assets/Textures/exam 10.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 10.png"
+      },
+      "Assets/Textures/exam 2.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 2.png"
+      },
+      "Assets/Textures/exam 3.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 3.png"
+      },
+      "Assets/Textures/exam 4.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 4.png"
+      },
+      "Assets/Textures/exam 5.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 5.png"
+      },
+      "Assets/Textures/exam 6.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 6.png"
+      },
+      "Assets/Textures/exam 7.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 7.png"
+      },
+      "Assets/Textures/exam 8.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 8.png"
+      },
+      "Assets/Textures/exam 9.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam 9.png"
+      },
+      "Assets/Textures/exam.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures/exam.png"
+      },
+      "Assets\\Textures2": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures2"
+      },
+      "Assets/Textures2/1.png": {
+        "BuildTargetGroup": 1,
+        "OverrideSettings": true,
+        "Path": "Assets/Textures2/1.png"
+      }
+    }
+  },
+  "m_textureSettingsPresetsDict": {
+    "Standalone": {
+      "Default2D": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "DefaultCubemap": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "Lightmap": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "Sprite": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      }
+    },
+    "Android": {
+      "Default2D": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "DefaultCubemap": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "Lightmap": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "Sprite": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      }
+    },
+    "iPhone": {
+      "Default2D": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "DefaultCubemap": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "Lightmap": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "Sprite": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      }
+    },
+    "Switch": {
+      "Default2D": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "DefaultCubemap": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "Lightmap": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      },
+      "Sprite": {
+        "None": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        },
+        "Assigned": {
+          "FilterByAlphaSource": false,
+          "MaxSizeOverride": false,
+          "MaxSize": 2048,
+          "FormatOverride": false,
+          "Format": 4,
+          "CompressorQualityOverride": false,
+          "CompressorQuality": 50,
+          "OverrideETC2FallbackOverride": false,
+          "OverrideETS2Fallback": 0,
+          "AssetType": 0,
+          "AutomaticallyApplyForNew": false
+        }
+      }
+    }
+  },
+  "m_audioSettingsPresetsDict": {},
+  "m_meshSettingsPreset": {
+    "OverrideCompression": false,
+    "Compression": 0,
+    "AssetType": 2,
+    "AutomaticallyApplyForNew": false
+  },
+  "m_settingsPresetsByDirectoriesDict": {
+    "Standalone": {
+      "Texture": [],
+      "Audio": [],
+      "Mesh": []
+    },
+    "Android": {
+      "Texture": [],
+      "Audio": [],
+      "Mesh": []
+    },
+    "iPhone": {
+      "Texture": [],
+      "Audio": [],
+      "Mesh": []
+    },
+    "Switch": {
+      "Texture": [],
+      "Audio": [],
+      "Mesh": []
+    }
+  },
+  "m_optimizationModuleFoldoutDataDict": {},
+  "SelectedTab": 0,
+  "SelectedTextureType": 0,
+  "SelectedTextureShape": 1,
+  "SelectedAlphaSource": 0,
+  "FoldoutTextureDefaultPresets": false,
+  "FoldoutTextureOverrideByDirectories": false,
+  "m_selectedTargetGroup": 1
+}

@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: Epic Games
   m_EditorClassIdentifier: PortingTechnologies.UPT.Core::UPT.Core.PlatformServiceCollection
   Name: Epic Games
-  IsActive: 0
+  IsActive: 1
   m_serviceConfigs:
   - ServiceType: IAchievementService
     PreferredPlatform: Epic Online Services
   - ServiceType: ILeaderboardService
-    PreferredPlatform: Epic Online Services
+    PreferredPlatform: None
   - ServiceType: ILobbyService
+    PreferredPlatform: None
+  - ServiceType: IEOSAuthenticationService
+    PreferredPlatform: Epic Online Services
+  - ServiceType: IPlatformService
+    PreferredPlatform: Epic Online Services
+  - ServiceType: IRemoteStorageService
     PreferredPlatform: Epic Online Services

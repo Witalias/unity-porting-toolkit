@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ namespace UPT.Core.Samples
     {
         private const string SELECTED_COLOR_HEX = "#B0B0B0";
 
+        [SerializeField] private TMP_Text m_label;
         [SerializeField] private GameObject m_content;
 
         private Toggle m_toggle;
@@ -29,6 +31,17 @@ namespace UPT.Core.Samples
         private void OnDisable()
         {
             m_toggle.onValueChanged.RemoveListener(OnValueChanged);
+        }
+
+        public void SetText(string value)
+        {
+            if (m_label)
+                m_label.text = value;
+        }
+
+        public void SetContent(GameObject value)
+        {
+            m_content = value;
         }
 
         private void OnValueChanged(bool isOn)

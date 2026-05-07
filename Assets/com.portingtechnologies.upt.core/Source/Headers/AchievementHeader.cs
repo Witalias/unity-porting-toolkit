@@ -20,7 +20,9 @@ namespace UPT.Services
     {
         public bool IsUnlocked { get; }
 
-        public UptAchievementUnlockedResult(ErrorCode error, bool isUnlocked = false) : base(error)
+        public UptAchievementUnlockedResult(ErrorCode error, bool isUnlocked = false) : this(error, null, isUnlocked) { }
+
+        public UptAchievementUnlockedResult(ErrorCode error, string innerMessage, bool isUnlocked = false) : base(error, innerMessage)
         {
             IsUnlocked = isUnlocked;
         }
@@ -43,18 +45,16 @@ namespace UPT.Services
         public string AchievementId { get; }
         public string DisplayName { get; }
         public string Description { get; }
-        public string FlavorText { get; }
         public bool IsHidden { get; }
         public int MaxProgress { get; }
 
         public UptAchievementGetInfoResult(ErrorCode error, string innerMessage = null, string achievementId = null, string displayName = null, 
-            string desc = null, string flavorText = null, bool isHidden = false, int maxProgress = 0) 
+            string desc = null, bool isHidden = false, int maxProgress = 0) 
             : base(error, innerMessage)
         {
             AchievementId = achievementId;
             DisplayName = displayName;
             Description = desc;
-            FlavorText = flavorText;
             IsHidden = isHidden;
             MaxProgress = maxProgress;
         }

@@ -16,9 +16,14 @@ namespace UPT.Core
             DontDestroyOnLoad(bootstrapObject);
         }
 
-        void Awake()
+        private void Awake()
         {
             Initialize();
+        }
+
+        private void Start()
+        {
+            PostInitialize();
         }
 
         private void OnDestroy()
@@ -43,6 +48,11 @@ namespace UPT.Core
             }
 
             m_initialized = true;
+        }
+
+        private void PostInitialize()
+        {
+            m_moduleManager?.PostInitialize();
         }
 
         private void Shutdown()

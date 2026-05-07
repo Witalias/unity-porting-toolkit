@@ -24,5 +24,8 @@ namespace UPT.Services
         UntypedError,
         UnsupportedFeature,
         SdkNotInitialized,
+        AnotherActionRequired,
+        AlreadyLoggedIn,
+        NotFound
     }
 }

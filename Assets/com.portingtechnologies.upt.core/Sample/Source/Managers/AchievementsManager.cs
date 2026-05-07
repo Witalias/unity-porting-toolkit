@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UPT.Services;
 
 namespace UPT.Core.Samples
 {
@@ -50,11 +49,11 @@ namespace UPT.Core.Samples
         [Header("Clear All Achievements And Stats")]
         [SerializeField] private Button m_clearAllButton;
 
-        private IAchievementService m_achievementService;
+        private Services.IAchievementService m_achievementService;
 
         private void Awake()
         {
-            m_achievementService = ServiceContainer.Get<IAchievementService>();
+            m_achievementService = ServiceContainer.Get<Services.IAchievementService>();
         }
 
         private void OnEnable()
@@ -148,14 +147,6 @@ namespace UPT.Core.Samples
                 else
                     Debug.LogError($"Unlock achievement '{achievementId}' failed: {result.ErrorCode}. {result.InnerMessage}");
             });
-
-            ServiceContainer.Get<IAchievementService>().UnlockAchievement(achievementId, result =>
-            {
-                if (result.IsSuccess)
-                    Debug.Log("Success!!!");
-                else
-                    Debug.Log("Error: " + result.ErrorCode);
-            });
         }
 
         private void OnClearButtonClick()
@@ -226,7 +217,7 @@ namespace UPT.Core.Samples
                 if (result.IsSuccess)
                 {
                     Debug.Log($"Achievement '{achievementId}' info:\n\tAchievement ID: {result.AchievementId}" +
-                        $"\n\tDisplay name: {result.DisplayName}\n\tDescription: {result.Description}\n\tFlavor text: {result.FlavorText}" +
+                        $"\n\tDisplay name: {result.DisplayName}\n\tDescription: {result.Description}" +
                         $"\n\tIs hidden: {result.IsHidden}\n\tMax progress: {result.MaxProgress}");
                 }
                 else
