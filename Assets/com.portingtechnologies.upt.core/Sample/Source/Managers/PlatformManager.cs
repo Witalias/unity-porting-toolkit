@@ -67,26 +67,11 @@ namespace UPT.Core.Samples
         {
             var localeCode = m_platformService.GetLocaleCode();
             Debug.Log($"Locale code: {localeCode}");
-
-            var leaderboardService = ServiceContainer.Get<Services.ILeaderboardService>();
-
-            leaderboardService.GetEntriesAroundUser("my_leaderboard_id", 2, result =>
-            {
-                if (result.IsSuccess)
-                {
-                    foreach (var entry in result.Entries)
-                    {
-                        Debug.Log($"Username - {entry.Username}, rank - {entry.Rank}, score - {entry.Score}");
-                    }
-                }
-            }, null);
         }
 
         private void OnGetUsernameButton()
         {
             var username = m_platformService.GetUsername();
-            if (string.IsNullOrEmpty(username))
-                Debug.Log("Username is NULL. The game may not have been launched via Epic Games Launcher");
             Debug.Log($"Username: {username}");
         }
 

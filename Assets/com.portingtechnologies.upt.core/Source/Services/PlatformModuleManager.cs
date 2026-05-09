@@ -18,7 +18,7 @@ namespace UPT.Core
             UptLogger.Info("Starting module discovery...");
             var discoveredModules = DiscoverModulesViaReflection();
             InitializeAndRegisterModules(discoveredModules);
-            FillMockServices();
+            FillMockServices(discoveredModules);
             LogLoadingSummary();
         }
 
@@ -147,17 +147,17 @@ namespace UPT.Core
             }
         }
 
-        private void FillMockServices()
+        private void FillMockServices(IList<IPlatformModule> modules)
         {
-            if (m_loadedModules == null || m_loadedModules.Count == 0)
-            {
-                UptLogger.Warning("No modules loaded, cannot fill mock services");
-                return;
-            }
+            //if (m_loadedModules == null || m_loadedModules.Count == 0)
+            //{
+            //    UptLogger.Warning("No modules loaded, cannot fill mock services");
+            //    return;
+            //}
 
             UptLogger.Info("Starting mock service initialization...");
 
-            var availableServiceTypes = ModuleUtility.GetAllAvailableServiceTypes(m_loadedModules);
+            var availableServiceTypes = ModuleUtility.GetAllAvailableServiceTypes(modules);
             var missingCount = 0;
             var mockCount = 0;
 

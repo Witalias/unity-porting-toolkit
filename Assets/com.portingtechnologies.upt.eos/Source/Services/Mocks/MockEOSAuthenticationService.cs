@@ -4,6 +4,7 @@ using UPT.Core;
 
 namespace UPT.Services.Mocks
 {
+    [MockService(typeof(IEOSAuthenticationService))]
     public class MockEOSAuthenticationService : IEOSAuthenticationService, IMockService
     {
         public string OriginalServiceName => nameof(IEOSAuthenticationService);

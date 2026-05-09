@@ -15,15 +15,13 @@ MonoBehaviour:
   Name: Epic Games
   IsActive: 1
   m_serviceConfigs:
-  - ServiceType: IAchievementService
-    PreferredPlatform: Epic Online Services
-  - ServiceType: ILeaderboardService
-    PreferredPlatform: None
-  - ServiceType: ILobbyService
+  - ServiceType: IPlatformService
     PreferredPlatform: None
   - ServiceType: IEOSAuthenticationService
-    PreferredPlatform: Epic Online Services
-  - ServiceType: IPlatformService
-    PreferredPlatform: Epic Online Services
+    PreferredPlatform: None
+  - ServiceType: IAchievementService
+    PreferredPlatform: None
+  - ServiceType: ILeaderboardService
+    PreferredPlatform: None
   - ServiceType: IRemoteStorageService
-    PreferredPlatform: Epic Online Services
+    PreferredPlatform: None

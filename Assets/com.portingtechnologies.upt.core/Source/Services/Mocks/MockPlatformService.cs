@@ -11,7 +11,7 @@ namespace UPT.Core
 
         public string GetLocaleCode()
         {
-            return null;
+            return Constants.Locale.English;
         }
 
         public string GetUserID()

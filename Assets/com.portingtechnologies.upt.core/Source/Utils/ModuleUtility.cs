@@ -7,7 +7,7 @@ namespace UPT.Core
 {
     public static class ModuleUtility
     {
-        public static List<Type> GetAllAvailableServiceTypes(IReadOnlyList<IPlatformModule> modules)
+        public static List<Type> GetAllAvailableServiceTypes(IList<IPlatformModule> modules)
         {
             var serviceTypes = new List<Type>();
 

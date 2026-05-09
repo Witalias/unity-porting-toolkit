@@ -34,19 +34,23 @@ namespace UPT.Services
         /// </summary>
         bool Auth_IsLoggedIn();
 
+        /// <summary>
+        /// Revoke the player's long-lived refresh token on the authorization server. This also deletes the long-lived refresh token from the keychain of the local player.
+        /// If the player logged in using <see cref="Auth_LoginWithAccountPortal"/> and then wished to opt out of the automatic login, you should call <see cref="Auth_Logout"/> and <see cref="Auth_DeletePersistentAuth"/>.
+        /// </summary>
         void Auth_DeletePersistentAuth(EOSAuthenticationGeneralCallback callback);
 
         /// <summary>
         /// <list>Log in an Epic Games user to EOS Game Services.
         /// Before doing this, you must log the user into Epic Account Services by calling <see cref="Auth_LoginExchangeCode(EOSLoginCallback)"/>, <see cref="Auth_LoginWithAccountPortal(EOSLoginCallback)"/> or <see cref="Auth_LoginDeveloper(EOSLoginCallback)"/>.</list>
-        /// <list>Depending on the configuration, the callback may return an InvalidAuth error, which indicates that the user does not exist.
+        /// <list>The callback may return an InvalidAuth error, which indicates that the user does not exist.
         /// A common practice in this case is to call <see cref="Connect_CreateUser(EOSLoginCallback)"/> to create a new user.</list>
         /// </summary>
         void Connect_LoginEpicUser(EOSLoginCallback callback);
 
         /// <summary>
         /// <list>Log in the user to EOS Game Services using a Steam Session Ticket received from his Steam account. Please use the Steamworks documentation for detailed information about the Steam Session Ticket.</list>
-        /// <list>Depending on the configuration, the callback may return an InvalidAuth error, which indicates that the user does not exist.
+        /// <list>The callback may return an InvalidAuth error, which indicates that the user does not exist.
         /// A common practice in this case is to call <see cref="Connect_CreateUser(EOSLoginCallback)"/> to create a new user.</list>
         /// </summary>
         void Connect_LoginSteamUser(string sessionTicket, EOSLoginCallback callback);
@@ -71,6 +75,9 @@ namespace UPT.Services
 
     public class UptEOSLoginResult : UptEOSResult
     {
+        /// <summary>
+        /// The ID of the logged-in user.
+        /// </summary>
         public string LocalUserId { get; }
 
         public UptEOSLoginResult(ErrorCode error, string innerMessage = null, string userId = null) : base(error, innerMessage)
@@ -81,6 +88,9 @@ namespace UPT.Services
 
     public class UptEOSLogoutResult : UptEOSResult
     {
+        /// <summary>
+        /// The ID of the user who was logged out.
+        /// </summary>
         public string LocalUserId { get; }
 
         public UptEOSLogoutResult(ErrorCode error, string innerMessage = null, string userId = null) : base(error, innerMessage)

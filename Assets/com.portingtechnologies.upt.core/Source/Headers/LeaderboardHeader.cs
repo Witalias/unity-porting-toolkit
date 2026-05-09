@@ -2,6 +2,11 @@ namespace UPT.Services
 {
     public interface ILeaderboardService
     {
+        /// <summary>
+        /// Get leaderboard data such as the name and number of entries.
+        /// </summary>
+        /// <param name="leaderboardId">The ID of the leaderboard to get data about. You can usually find it on the developer's portal.</param>
+        /// <param name="callback"></param>
         void GetLeaderboardInfo(string leaderboardId, GetLeaderboardInfoCallback callback);
 
         /// <summary>
@@ -30,8 +35,32 @@ namespace UPT.Services
         ///// < param name= "metadata" > Метаданные, зависящие от платформы.В общем случае достаточно указать значение NULL.</param>
         void GetGlobalEntries(string leaderboardId, int count, GetLeaderboardEntriesCallback callback, LeaderboardMetadata metadata);
 
+        /// <summary>
+        /// Request friend rankings for a specific leaderboard.
+        /// </summary>
+        /// <remarks>
+        /// Platform-specific notes
+        /// <br/><b>EOS:</b> You can specify <see cref="LeaderboardMetadata.StringValues"/> in <paramref name="metadata"/> to additionally request the corresponding stats for each user in the resulting rating.
+        /// <br/><b>Others:</b> <paramref name="metadata"/> is not used, specify NULL.
+        /// </remarks>
+        /// <param name="leaderboardId">The ID of the leaderboard to get the entries from. You can usually find it on the developer's portal.</param>
+        /// <param name="callback"></param>
+        /// <param name="metadata">Metadata that depends on the platform. In general cases, NULL can be specified.</param>
         void GetFriendsEntries(string leaderboardId, GetLeaderboardEntriesCallback callback, LeaderboardMetadata metadata);
 
+        /// <summary>
+        /// Request rankings relative a user's entry for a specific leaderboard.
+        /// </summary>
+        /// <remarks>
+        /// Platform-specific notes
+        /// <br/><b>EOS:</b> You can specify <see cref="LeaderboardMetadata.StringValues"/> in <paramref name="metadata"/> to additionally request the corresponding stats for each user in the resulting rating.
+        /// <br/><b>Others:</b> <paramref name="metadata"/> is not used, specify NULL.
+        /// </remarks>
+        /// <param name="leaderboardId">The ID of the leaderboard to get the entries from. You can usually find it on the developer's portal.</param>
+        /// <param name="range">The number of entries to be retrieved before and after the user.
+        /// For example, if the user's current position is #5, then setting <paramref name="range"/> to 2 will return 5 entries: ranks from #3 to #7.</param>
+        /// <param name="callback"></param>
+        /// <param name="metadata">Metadata that depends on the platform. In general cases, NULL can be specified.</param>
         void GetEntriesAroundUser(string leaderboardId, int range, GetLeaderboardEntriesCallback callback, LeaderboardMetadata metadata);
 
         /// <summary>
@@ -72,14 +101,17 @@ namespace UPT.Services
         public string[] StringValues;
     }
 
-    /// <remarks>
-    /// Platform-specific notes
-    /// <br/><b>STEAM / VK PLAY:</b> <see cref="LeaderboardMetadata.IntValues"/> contains additional details that were specified when uploading the score in <see cref="ILeaderboardService.UploadScore(string, int, LeaderboardGeneralCallback, LeaderboardMetadata)"/>
-    /// <br/><b>EOS:</b> <see cref="LeaderboardMetadata.IntValues"/> contains the values of the stats corresponding to the array <see cref="LeaderboardMetadata.StringValues"/> sent as metadata when requesting entries.
-    /// <br/><b>Others:</b> <see cref="LeaderboardEntry.Metadata"/> is always NULL.
-    /// </remarks>
     public class UptGetLeaderboardEntriesResult : UptResult
     {
+        /// <summary>
+        /// Leaderboard entries received from the platform.
+        /// </summary>
+        /// <remarks>
+        /// Platform-specific notes
+        /// <br/><b>STEAM / VK PLAY:</b> <see cref="LeaderboardMetadata.IntValues"/> contains additional details that were specified when uploading the score in <see cref="ILeaderboardService.UploadScore(string, int, LeaderboardGeneralCallback, LeaderboardMetadata)"/>
+        /// <br/><b>EOS:</b> <see cref="LeaderboardMetadata.IntValues"/> contains the values of the stats corresponding to the array <see cref="LeaderboardMetadata.StringValues"/> sent as metadata when requesting entries.
+        /// <br/><b>Others:</b> <see cref="LeaderboardEntry.Metadata"/> is always NULL.
+        /// </remarks>
         public LeaderboardEntry[] Entries;
 
         public UptGetLeaderboardEntriesResult(ErrorCode error, string innerMessage = null, LeaderboardEntry[] entries = null) : base(error, innerMessage)

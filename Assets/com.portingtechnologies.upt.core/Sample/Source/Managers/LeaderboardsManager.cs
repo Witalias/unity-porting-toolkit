@@ -342,6 +342,9 @@ namespace UPT.Core.Samples
 
         private void LogEntries(Services.LeaderboardEntry[] entries)
         {
+            if (entries == null)
+                return;
+
             var log = new StringBuilder();
             foreach (var entry in entries)
             {
