@@ -44,7 +44,7 @@ namespace UPT.Editor
 
         private void OnDisable()
         {
-            UpdatePreprocessorDefinitions();
+            ConfigurationPresetManager.UpdatePreprocessorDefinitions(m_currentServiceCollection, m_availableModules);
         }
 
         void OnGUI()
@@ -120,7 +120,7 @@ namespace UPT.Editor
                 if (GUILayout.Button("Apply Scripting Definition Symbols"))
                 {
                     m_updatePreprocessorDefinitions = false;
-                    UpdatePreprocessorDefinitions();
+                    ConfigurationPresetManager.UpdatePreprocessorDefinitions(m_currentServiceCollection, m_availableModules);
                 }
             }
 
@@ -167,7 +167,7 @@ namespace UPT.Editor
 
         private void DrawModuleItem(IPlatformModule module)
         {
-            var isActive = IsModuleActive(module, m_currentServiceCollection);
+            var isActive = ModuleUtility.IsModuleActive(module, m_currentServiceCollection, m_availableModules);
             var servicesCount = module.ProvidedServiceTypes.Count;
 
             GUILayout.Space(GUIConstants.Gaps.Padding);
@@ -388,7 +388,7 @@ namespace UPT.Editor
                 GUILayout.Label("✓ Active");
 
             var activeModulesCount = m_availableModules
-                .Where(module => IsModuleActive(module, collection))
+                .Where(module => ModuleUtility.IsModuleActive(module, collection, m_availableModules))
                 .Count();
 
             var moduleNames = m_availableModules
@@ -432,24 +432,6 @@ namespace UPT.Editor
             //GUILayout.Space(SECTION_GAP);
         }
 
-        /// <summary>
-        /// The module is active if at least one service uses it as a backend.
-        /// </summary>
-        private bool IsModuleActive(IPlatformModule module, PlatformServiceCollection forCollection)
-        {
-            var availableServiceTypes = ModuleUtility.GetAllAvailableServiceTypes(m_availableModules);
-
-            foreach (var serviceType in availableServiceTypes)
-            {
-                var service = forCollection.GetServiceConfig(serviceType);
-                var currentPlatform = service?.PreferredPlatform ?? NONE_OPTION;
-                if (currentPlatform == module.DisplayName)
-                    return true;
-            }
-
-            return false;
-        }
-
         private void ShowModuleInfo(IPlatformModule module)
         {
             var moduleType = module.GetType();
@@ -458,7 +440,7 @@ namespace UPT.Editor
             var info = $"Module: {module.DisplayName}\n" +
                       $"Version: {module.Version}\n" +
                       $"Package: {attribute.PackageName}\n" +
-                      $"Active: {IsModuleActive(module, m_currentServiceCollection)}\n" +
+                      $"Active: {ModuleUtility.IsModuleActive(module, m_currentServiceCollection, m_availableModules)}\n" +
                       $"Services: {module.ProvidedServiceTypes.Count}";
 
             EditorUtility.DisplayDialog("Module Information", info, "OK");
@@ -501,18 +483,8 @@ namespace UPT.Editor
 
         private void SwitchCollection(PlatformServiceCollection collection)
         {
-            foreach (var col in m_serviceCollections)
-            {
-                col.IsActive = false;
-                EditorUtility.SetDirty(col);
-            }
-
-            collection.IsActive = true;
+            ConfigurationPresetManager.ApplyPreset(collection, m_serviceCollections, m_availableModules);
             m_currentServiceCollection = collection;
-
-            EditorUtility.SetDirty(collection);
-            AssetDatabase.SaveAssets();
-
             UpdatePreprocessorDefinitionsStatusForUI();
         }
 
@@ -554,7 +526,7 @@ namespace UPT.Editor
                 if (string.IsNullOrEmpty(attribute.ProprocessorDefinition))
                     continue;
 
-                var enableDefinition = IsModuleActive(module, m_currentServiceCollection);
+                var enableDefinition = ModuleUtility.IsModuleActive(module, m_currentServiceCollection, m_availableModules);
                 if (attribute.ProprocessorDefinitionInverted)
                     enableDefinition = !enableDefinition;
 
@@ -565,23 +537,6 @@ namespace UPT.Editor
                 }
             }
             m_updatePreprocessorDefinitions = false;
-        }
-
-        private void UpdatePreprocessorDefinitions()
-        {
-            foreach (var module in m_availableModules)
-            {
-                var attribute = module.GetType().GetCustomAttribute<PlatformModuleAttribute>();
-
-                if (string.IsNullOrEmpty(attribute.ProprocessorDefinition))
-                    continue;
-
-                var enableDefinition = IsModuleActive(module, m_currentServiceCollection);
-                if (attribute.ProprocessorDefinitionInverted)
-                    enableDefinition = !enableDefinition;
-
-                PreprocessorDefinitionManager.Set(NamedBuildTarget.Standalone, attribute.ProprocessorDefinition, enableDefinition);
-            }
         }
     }
 }

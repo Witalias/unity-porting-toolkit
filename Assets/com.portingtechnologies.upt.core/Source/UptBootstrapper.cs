@@ -5,6 +5,7 @@ namespace UPT.Core
 {
     public class UptBootstrapper : MonoBehaviour
     {
+#if !DISABLE_UPT
         private PlatformModuleManager m_moduleManager;
         private bool m_initialized;
 
@@ -72,20 +73,6 @@ namespace UPT.Core
             m_initialized = false;
         }
 
-        //private void FillMockServices()
-        //{
-        //    var loadedModules = m_moduleManager.LoadedModules;
-        //    var availableServiceTypes = ModuleUtility.GetAllAvailableServiceTypes(loadedModules);
-
-        //    foreach (var serviceType in availableServiceTypes)
-        //    {
-        //        if (!ServiceContainer.IsRegistered(serviceType))
-        //        {
-        //            var 
-        //        }
-        //    }
-        //}
-
         private void Update()
         {
             if (!m_initialized)
@@ -98,5 +85,6 @@ namespace UPT.Core
                     updatable.Update();
             }
         }
+#endif
     }
 }
