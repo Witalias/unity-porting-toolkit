@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Steam
   m_EditorClassIdentifier: PortingTechnologies.UPT.Core::UPT.Core.PlatformServiceCollection
   Name: Steam
-  IsActive: 1
+  IsActive: 0
   m_serviceConfigs:
   - ServiceType: IPlatformService
     PreferredPlatform: Steamworks

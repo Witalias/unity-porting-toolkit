@@ -26,6 +26,7 @@ namespace UPT.Services
         SdkNotInitialized,
         AnotherActionRequired,
         AlreadyLoggedIn,
-        NotFound
+        NotFound,
+        InvalidAuth
     }
 }

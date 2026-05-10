@@ -238,7 +238,8 @@ namespace UPT.Services
                 }
                 else
                 {
-                    callback?.Invoke(new UptEOSLoginResult(ErrorCode.UntypedError, EOSServiceContext.GetBackendErrorMsg(data.ResultCode)) { EOSErrorCode = data.ResultCode });
+                    var errorCode = data.ResultCode == Result.InvalidAuth ? ErrorCode.InvalidAuth : ErrorCode.UntypedError;
+                    callback?.Invoke(new UptEOSLoginResult(errorCode, EOSServiceContext.GetBackendErrorMsg(data.ResultCode)) { EOSErrorCode = data.ResultCode });
                 }
             });
         }
@@ -297,7 +298,8 @@ namespace UPT.Services
                     if (data.ResultCode == Result.InvalidUser)
                         m_lastContinuanceToken = data.ContinuanceToken;
 
-                    callback?.Invoke(new UptEOSLoginResult(ErrorCode.UntypedError, EOSServiceContext.GetBackendErrorMsg(data.ResultCode)) { EOSErrorCode = data.ResultCode });
+                    var errorCode = data.ResultCode == Result.InvalidUser ? ErrorCode.InvalidAuth : ErrorCode.UntypedError;
+                    callback?.Invoke(new UptEOSLoginResult(errorCode, EOSServiceContext.GetBackendErrorMsg(data.ResultCode)) { EOSErrorCode = data.ResultCode });
                 }
             }
         }
