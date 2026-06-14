@@ -238,16 +238,16 @@ namespace UPT.Editor
 
             m_installationQueue.Clear();
 
-            if (packagePair.ModulePackage.Status is PackageStatus.NotInstalled && !string.IsNullOrEmpty(packagePair.ModulePackage.Url))
-            {
-                m_installationQueue.Add(packagePair.ModulePackage);
-                packagePair.ModulePackage.Status = PackageStatus.Installing;
-            }
-
             if (packagePair.ExternalPackage.Status is PackageStatus.NotInstalled && !string.IsNullOrEmpty(packagePair.ExternalPackage.Url))
             {
                 m_installationQueue.Add(packagePair.ExternalPackage);
                 packagePair.ExternalPackage.Status = PackageStatus.Installing;
+            }
+
+            if (packagePair.ModulePackage.Status is PackageStatus.NotInstalled && !string.IsNullOrEmpty(packagePair.ModulePackage.Url))
+            {
+                m_installationQueue.Add(packagePair.ModulePackage);
+                packagePair.ModulePackage.Status = PackageStatus.Installing;
             }
 
             StartInstallation();

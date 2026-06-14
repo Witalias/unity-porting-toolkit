@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace UPT.Steam
 {
-    [PlatformModule("upt.portingtechnologies.upt.steam", "DISABLESTEAMWORKS", true)]
+    [PlatformModule("com.portingtechnologies.upt.steam", "DISABLESTEAMWORKS", true)]
     public class SteamPlatformModule : PlatformModule
     {
         public override string DisplayName => "Steamworks";
