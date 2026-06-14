@@ -30,10 +30,10 @@ MonoBehaviour:
       DisplayName: EOS Plugin for Unity
       Url: https://github.com/EOS-Contrib/eos_plugin_for_unity_upm.git
   - ModulePackage:
-      Name: com.portingtechnologies.upt.googleplay
-      DisplayName: Google Play
-      Url: 
+      Name: com.portingtechnologies.upt.vkplay
+      DisplayName: VK Play
+      Url: https://github.com/Witalias/unity-porting-toolkit.git?path=/Assets/com.portingtechnologies.upt.vkplay
     ExternalPackage:
-      Name: com.google.play.games
-      DisplayName: Google Play Plugin for Unity
-      Url: https://github.com/playgameservices/play-games-plugin-for-unity.git?path=/Assets/Public/GooglePlayGames/com.google.play.games
+      Name: com.rlabrecque.steamworks.net
+      DisplayName: Steamworks.NET
+      Url: https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net
